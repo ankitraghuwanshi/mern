@@ -2,9 +2,13 @@ const express = require("express")
 
 const app = express()
 
+//middleware
+//this is in-built middleware
+app.use(express.json())
+
 const PORT=3000
 
-const USERS_ARRAY=[
+let USERS_ARRAY=[
     {
         name:"bruce",
         id:5,
@@ -45,7 +49,7 @@ app.get('/users',(req,res)=>{
 
 app.post('/add-user',(req,res)=>{
     const formData=req.body
-
+    console.log(formData)
     USERS_ARRAY.push({
         name: formData.name,
         id: formData.id,
@@ -55,6 +59,16 @@ app.post('/add-user',(req,res)=>{
     res.json({
         success:true
     })
+})
+
+app.delete('/delete-user',(req,res)=>{
+    const formData=req.body
+    
+    USERS_ARRAY=USERS_ARRAY.filter((user)=>{
+        return user.id !== formData.id
+    })
+
+    res.json({success:true})
 })
 
 app.listen(PORT ,()=>{

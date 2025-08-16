@@ -29,6 +29,7 @@ app.get('/',(req,res)=>{
     res.json(json)
 })
 
+// Un-authenticated -> everyone can access it
 app.get('/hello',(req,res)=>{
     const json={
         message:"hello message",
@@ -55,6 +56,7 @@ const testMiddleware=(req,res,next)=>{
     next()
 }
 
+// Authenticated routes -> only users with password can access it
 app.get('/users',[authenticateMiddleware, testMiddleware] ,(req,res)=>{
 
     //automatically set the content header

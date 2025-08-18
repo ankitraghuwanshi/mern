@@ -18,7 +18,7 @@ mongoose.connect(DB_URL)
     console.log(err)
 })
 
-//import model
+//import mongoose model (UserModel from models/users)
 const {UserModel} = require("./models/users")
 
 //middleware

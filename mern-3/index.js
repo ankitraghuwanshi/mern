@@ -1,15 +1,32 @@
 const express = require("express")
-
 const app = express()
+
+const dotenv=require("dotenv")
+const mongoose=require("mongoose")
+
+dotenv.config()
+// It reads any .env file, converts them into JS object, stores them in process.env
+//console.log({ env: process.env })
+
+const { PORT, DB_URL }=process.env
+
+mongoose.connect(DB_URL)
+.then(()=>{
+    console.log("connected to our DATABASE")
+})
+.catch((err)=>{
+    console.log(err)
+})
+
+//import model
+const {UserModel} = require("./models/users")
 
 //middleware
 //this is in-built middleware
 app.use(express.json())
 
-const PORT=3000
-
+//custom midleware
 const authenticateMiddleware=(req,res,next)=>{
-    console.log("middleware 1 is called")
     
     if(req.headers.password ==="test"){
         //allow user to proceed
@@ -18,56 +35,74 @@ const authenticateMiddleware=(req,res,next)=>{
         res.status(500).send("you are not authenticated")
     }
 }
-//dummy middleware
-const testMiddleware=(req,res,next)=>{
-    console.log("middleware 2 is called")
-    next()
-}
 
-// Authenticated routes -> only users with password can access it
-app.get('/users',[authenticateMiddleware, testMiddleware] ,(req,res)=>{
+//post route (try use with postman)
+app.post('/add-user', authenticateMiddleware, async (req,res)=>{
+    try {
+        const userDetails=req.body
+        const user=await UserModel.create(userDetails)
 
-    //automatically set the content header
-    res.json(USERS_ARRAY)
+        res.status(200).json({
+            status: "success",
+            message:"user created successfully",
+            user
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "failure",
+            message: error.message
+        })
+    }
 })
 
-//how to get particular user with id
-app.get('/users/:userId',(req,res)=>{
-    console.log(req.params)
+//get route for all users
+app.get('/users',async (req,res)=>{
+    try {
+        const users=await UserModel.find()
 
-    const user=USERS_ARRAY.find((user)=>
-        user.userId === parseInt(req.params.userId, 10)
-    )
-
-    //automatically set the content header
-    res.json(user)
-})
-
-app.post('/add-user',(req,res)=>{
-    const formData=req.body
-    //console.log(formData)
-
-    USERS_ARRAY.push(
-        {
-            userId: formData.userId,
-            name: formData.name,
-            address: formData.address
+        if(users.length === 0){
+            res.status(404).json({
+                status: "failure",
+                message: "NO USERS FOUND"
+            })
         }
-    )
 
-    res.json({
-        success:true
-    })
+        res.status(200).json({
+            status: "success",
+            message:"all users find successfully",
+            users
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "failure",
+            message: error.message
+        })
+    }
 })
 
-app.delete('/delete-user',(req,res)=>{
-    const formData=req.body
-    
-    USERS_ARRAY=USERS_ARRAY.filter((user)=>{
-        return user.userId !== formData.userId
-    })
+//get route for particular user
+app.get('/users/:_id',authenticateMiddleware,async(req,res)=>{
+    try {
+        const user=await UserModel.findById(req.params._id)
 
-    res.json({success:true})
+        if(!user){
+            res.status(404).json({
+                status: "failure",
+                message: "NO USER FOUND"
+            })
+        }
+
+        res.status(200).json({
+            status: "success",
+            message:"particular user findById successfully",
+            user
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "failure",
+            message: error.message
+        })
+    }
 })
 
 //for invalid url

@@ -15,6 +15,17 @@ const registerHandler=async(req,res)=>{
             })
         }
 
+        //find if user is present with same email
+        const isUserPresent = await UserModel.findOne({
+            email: req.body.email
+        })
+        if(isUserPresent){
+            return res.status(500).json({
+                success: false,
+                message: "Email already taken"
+            })
+        }
+
         //create a new user object locally
         const user = new UserModel(req.body)
 

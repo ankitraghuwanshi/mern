@@ -1,7 +1,7 @@
 const express=require("express")
 const userRouter=express.Router()
 
-const { registerHandler, loginHandler } =require("../controllers/usersController")
+const { registerHandler, loginHandler } =require("../controllers/userController")
 
 userRouter.post('/register',registerHandler)
 

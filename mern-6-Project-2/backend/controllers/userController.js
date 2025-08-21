@@ -1,5 +1,8 @@
 const {UserModel} =require("../models/userModel")
 var validator = require("email-validator") 
+const bcrypt = require("bcryptjs")
+
+const SALT_ROUNDS=12  //keep it between 10-15,depend on your pc
 
 const registerHandler=async(req,res)=>{
     try {
@@ -14,6 +17,13 @@ const registerHandler=async(req,res)=>{
 
         //create a new user object locally
         const user = new UserModel(req.body)
+
+        //generating salt and hashing our password
+        const salt = await bcrypt.genSalt(SALT_ROUNDS)
+        const hashedPassword = await bcrypt.hash(req.body.password, salt)
+        //console.log({hashedPassword})
+        user.password=hashedPassword
+
         //then save it to DATABASE
         await user.save()
 
@@ -44,9 +54,19 @@ const loginHandler=async function(req,res){
                 message: "no user found"
             })
         }
+        
         //then checking if password is valid or not
-        //basic method (this is bad method)
-        if(req.body.password !== user.password){
+        //1.basic method (this is bad method)
+        // if(req.body.password !== user.password){
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "no user with this password found"
+        //     })
+        // }
+
+        //2.bcrypt method
+        const isPasswordValid= await bcrypt.compare(req.body.password, user.password)
+        if(!isPasswordValid){
             return res.status(404).json({
                 success: false,
                 message: "no user with this password found"

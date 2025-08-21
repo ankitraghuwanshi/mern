@@ -1,10 +1,36 @@
 import React from 'react'
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from '../api/users';
 
 
 function Login() {
+
+  const [messageApi, contextHolder] = message.useMessage()
+  //nagivate after register successfully
+  const navigate = useNavigate()
+
+  const onFinishLoginForm = async (values)=>{
+    //console.log({values})
+    try {
+      const response = await loginUser(values)
+      
+      if(response.success){
+        messageApi.success("logged in successfully")
+        //navigate to login after registred successfully
+        navigate("/")
+      }else{
+        messageApi.error("something went wrong")
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
+    <>
+    {contextHolder}
     <header className="App-header">
       <main className="main-area mw-500 text-center px-3">
         <section className="left-section">
@@ -12,7 +38,7 @@ function Login() {
         </section>
 
         <section className="right-section">
-          <Form layout="vertical">
+          <Form onFinish={onFinishLoginForm} layout="vertical">
     
           <Form.Item
               label="Email"
@@ -62,6 +88,7 @@ function Login() {
         </section>
       </main>
     </header>
+    </>
   )
 }
 

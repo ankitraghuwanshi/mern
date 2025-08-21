@@ -1,10 +1,35 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
-import { Link } from "react-router-dom"
+import { Button, Form, Input, message } from "antd";
+import { Link, useNavigate } from "react-router-dom"
+import {registerUser} from "../api/users"
 
 function Register() {
- 
+  
+  const [messageApi, contextHolder] = message.useMessage()
+  //nagivate after register successfully
+  const navigate = useNavigate()
+
+  const onFinishRegisterForm = async (values)=>{
+    //console.log({values})
+    try {
+      const response = await registerUser(values)
+      
+      if(response.success){
+        messageApi.success("user registered successfully")
+        //navigate to login after registred successfully
+        navigate("/login")
+      }else{
+        messageApi.error("something went wrong")
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
+    <>
+      {contextHolder}
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">
@@ -12,7 +37,7 @@ function Register() {
           </section>
 
           <section className="right-section">
-            <Form layout="vertical">
+            <Form onFinish={onFinishRegisterForm} layout="vertical">
               <Form.Item
                 label="Name"
                 htmlFor="name"
@@ -77,6 +102,7 @@ function Register() {
           </section>
         </main>
       </header>
+    </>
   );
 }
 

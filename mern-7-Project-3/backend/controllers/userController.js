@@ -118,7 +118,7 @@ const getCurrentUserHandler = async function(req,res){
         }
         
         //user find by userId
-        const user = await UserModel.findById(userId)
+        const user = await UserModel.findById(userId).select("-password")
 
         res.json({
             success: true,

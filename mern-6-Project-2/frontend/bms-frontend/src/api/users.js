@@ -5,8 +5,11 @@ const registerUser = async(value) => {
         const response = await axiosInstance.post('/api/user/register', value)
         return response.data
     }catch (error) {
-        //throw error
-        console.log(error)
+        // Optionally extract and throw a more readable error
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        throw error; // Fallback to original error
     }
 }
 
@@ -15,8 +18,11 @@ const loginUser = async(value) => {
         const response = await axiosInstance.post('/api/user/login', value)
         return response.data
     }catch (error) {
-        //throw error
-        console.log(error)
+        // Optionally extract and throw a more readable error
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        }
+        throw error; // Fallback to original error
     }
 }
 

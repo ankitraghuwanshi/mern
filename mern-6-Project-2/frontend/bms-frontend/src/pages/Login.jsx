@@ -25,6 +25,7 @@ function Login() {
       }
 
     } catch (error) {
+      message.error("something went wrong") 
       console.log(error)
     }
   }

@@ -18,7 +18,9 @@ function Login() {
       if(response.success){
         messageApi.success("logged in successfully")
         //navigate to login after registred successfully
-        navigate("/")
+        setTimeout(() => {
+          navigate("/");
+        }, 1000); // Wait 1 second before redirect
       }else{
         messageApi.error("something went wrong")
       }

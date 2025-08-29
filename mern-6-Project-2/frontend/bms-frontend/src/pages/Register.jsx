@@ -17,7 +17,9 @@ function Register() {
       if(response.success){
         messageApi.success("user registered successfully")
         //navigate to login after registred successfully
-        navigate("/login")
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000); // Wait 1 second before redirect
       }else{
         messageApi.error("something went wrong")
       }

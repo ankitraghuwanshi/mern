@@ -11,6 +11,7 @@ const registerHandler=async(req,res)=>{
         if(!isEmailValid){
             return res.status(500).json({
                 success: false,
+                notValidEmail: true,
                 message: "please enter valid email"
             })
         }
@@ -22,6 +23,7 @@ const registerHandler=async(req,res)=>{
         if(isUserPresent){
             return res.status(500).json({
                 success: false,
+                emailTaken: true,
                 message: "Email already taken"
             })
         }
@@ -62,24 +64,17 @@ const loginHandler=async function(req,res){
         if(!user){
             return res.status(404).json({
                 success: false,
+                noUser: true,
                 message: "no user found"
             })
         }
-        
-        //then checking if password is valid or not
-        //1.basic method (this is bad method)
-        // if(req.body.password !== user.password){
-        //     return res.status(404).json({
-        //         success: false,
-        //         message: "no user with this password found"
-        //     })
-        // }
 
         //2.bcrypt method
         const isPasswordValid= await bcrypt.compare(req.body.password, user.password)
         if(!isPasswordValid){
             return res.status(404).json({
                 success: false,
+                invalidPassword: true,
                 message: "no user with this password found"
             })
         }

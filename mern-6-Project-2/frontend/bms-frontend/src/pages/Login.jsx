@@ -25,8 +25,14 @@ function Login() {
       }
 
     } catch (error) {
-      message.error("something went wrong") 
-      console.log(error)
+      if(error.response?.data?.noUser){
+        message.error("No user found")
+      }else if(error.response?.data?.invalidPassword){
+        message.error("Invalid password")
+      }else{
+        message.error("Something went wrong")
+        console.log(error)
+      }
     }
   }
 

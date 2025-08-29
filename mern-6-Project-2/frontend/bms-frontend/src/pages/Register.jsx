@@ -24,8 +24,14 @@ function Register() {
       }
 
     } catch (error) {
-      message.error("something went wrong")
-      console.log(error)
+      if(error.response?.data?.notValidEmail){
+        message.error("Please enter valid email")
+      }else if(error.response?.data?.emailTaken){
+        message.error("Email already taken")
+      }else{
+        message.error("Something went wrong")
+        console.log(error)
+      }
     }
   }
 

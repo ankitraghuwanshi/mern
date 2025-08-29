@@ -6,7 +6,6 @@ import { loginUser } from '../api/users';
 
 function Login() {
 
-  const [messageApi, contextHolder] = message.useMessage()
   //nagivate after register successfully
   const navigate = useNavigate()
 
@@ -16,13 +15,13 @@ function Login() {
       const response = await loginUser(values)
       
       if(response.success){
-        messageApi.success("logged in successfully")
+        message.success("logged in successfully")
         //navigate to login after registred successfully
         setTimeout(() => {
           navigate("/");
         }, 1000); // Wait 1 second before redirect
       }else{
-        messageApi.error("something went wrong")
+        message.error("something went wrong")
       }
 
     } catch (error) {
@@ -32,7 +31,6 @@ function Login() {
 
   return (
     <>
-    {contextHolder}
     <header className="App-header">
       <main className="main-area mw-500 text-center px-3">
         <section className="left-section">

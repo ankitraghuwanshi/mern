@@ -5,7 +5,6 @@ import {registerUser} from "../api/users"
 
 function Register() {
   
-  const [messageApi, contextHolder] = message.useMessage()
   //nagivate after register successfully
   const navigate = useNavigate()
 
@@ -15,13 +14,13 @@ function Register() {
       const response = await registerUser(values)
       
       if(response.success){
-        messageApi.success("user registered successfully")
+        message.success("user registered successfully")
         //navigate to login after registred successfully
         setTimeout(() => {
           navigate("/login");
         }, 1000); // Wait 1 second before redirect
       }else{
-        messageApi.error("something went wrong")
+        message.error("something went wrong")
       }
 
     } catch (error) {
@@ -31,7 +30,6 @@ function Register() {
 
   return (
     <>
-      {contextHolder}
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">

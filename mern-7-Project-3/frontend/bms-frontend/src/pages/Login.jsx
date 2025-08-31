@@ -6,7 +6,7 @@ import { loginUser } from '../api/users';
 
 function Login() {
 
-  const [messageApi, contextHolder] = message.useMessage()
+  //const [messageApi, contextHolder] = message.useMessage()
   //nagivate after register successfully
   const navigate = useNavigate()
 
@@ -16,23 +16,23 @@ function Login() {
       const response = await loginUser(values)
       
       if(response.success){
-        messageApi.success("logged in successfully")
+        message.success("logged in successfully")
         //string jwt token to localstorage
         localStorage.setItem("token", response.token)
         //navigate to login after registred successfully
         navigate("/")
       }else{
-        messageApi.error("something went wrong")
+        message.error("something went wrong (response.success if-else)")
       }
 
     } catch (error) {
+      message.error("something went wrong")
       console.log(error)
     }
   }
 
   return (
     <>
-    {contextHolder}
     <header className="App-header">
       <main className="main-area mw-500 text-center px-3">
         <section className="left-section">

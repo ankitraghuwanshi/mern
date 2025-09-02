@@ -15,11 +15,13 @@ import { Link } from "react-router-dom";
 import { setUser } from "../redux/userSlice";
 
 function ProtectedRoute({ children }) {
-  const {user} = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.users);
+  console.log({ user })
+  const { loading } = useSelector((state)=> state.loaders)
+  console.log({ loading })
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  console.log({ user })
 
   const navItems = [
     {
@@ -77,6 +79,7 @@ function ProtectedRoute({ children }) {
 
 
       dispatch(setUser(response.user));
+
       dispatch(hideLoading());
       // Hide Loader
     } catch (error) {

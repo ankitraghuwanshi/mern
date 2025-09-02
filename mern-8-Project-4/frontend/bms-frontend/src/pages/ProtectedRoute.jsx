@@ -16,9 +16,9 @@ import { setUser } from "../redux/userSlice";
 
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
-  console.log({ user })
-  const { loading } = useSelector((state)=> state.loaders)
-  console.log({ loading })
+  //console.log({ user })
+  //const { loading } = useSelector((state)=> state.loaders)
+  //console.log({ loading })
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -118,7 +118,7 @@ function ProtectedRoute({ children }) {
             </h3>
             <Menu theme="dark" mode="horizontal" items={navItems} />
           </Header>
-          <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>
+          <div style={{ padding: 24, height:"90vh",minHeight: 380, background: "#fff" }}>
             {children}
           </div>
         </Layout>

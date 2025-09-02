@@ -107,7 +107,7 @@ const loginHandler=async function(req,res){
 const getCurrentUserHandler = async function(req,res){
     try {
         //try to get req.body.userId from the request object
-        const userId=req.body.userId
+        const userId=req.userId
 
         //if userId not found then something went wrong
         if(!userId){

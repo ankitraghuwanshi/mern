@@ -9,7 +9,7 @@ function authMiddleware(req, res, next){
         const verifiedToken = jwt.verify(token, process.env.JWT_SECRET)
 
         //extract the userId from verifiedToken and save it in request
-        req.body.userId = verifiedToken.userId
+        req.userId = verifiedToken.userId
 
         next()
 

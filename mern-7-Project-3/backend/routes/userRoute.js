@@ -8,6 +8,6 @@ userRouter.post('/register',registerHandler)
 
 userRouter.post('/login',loginHandler)
 
-userRouter.get('/get-current-user',authMiddleware, getCurrentUserHandler)
+userRouter.get('/get-current-user', authMiddleware, getCurrentUserHandler)
 
 module.exports = userRouter

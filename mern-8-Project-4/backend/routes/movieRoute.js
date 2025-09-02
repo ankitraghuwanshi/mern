@@ -11,7 +11,7 @@ movieRouter.post('/add-movie',authMiddleware, addMovieHandler)
 //get all movie
 movieRouter.get('/get-all-movie',authMiddleware, getAllMovieHandler)
 
-//get all movie
+//update movie
 movieRouter.put('/update-movie',authMiddleware, updateMovieHandler)
 
 module.exports = movieRouter

@@ -1,8 +1,8 @@
-const { MoviesModel } = require("../models/movieModel")
+const { MovieModel } = require("../models/movieModel")
 
 const addMovieHandler=async (req,res)=>{
     try {
-        const movie = new MoviesModel(req.body)
+        const movie = new MovieModel(req.body)
         await movie.save()
 
         res.status(200).json({
@@ -20,7 +20,7 @@ const addMovieHandler=async (req,res)=>{
 
 const getAllMovieHandler=async (req,res)=>{
     try {
-        const movies = await MoviesModel.find()
+        const movies = await MovieModel.find()
 
         if(!movies){
             return res.status(404).json({
@@ -45,7 +45,7 @@ const getAllMovieHandler=async (req,res)=>{
 
 const updateMovieHandler=async (req,res)=>{
     try {
-        const movie = await MoviesModel.findOneAndUpdate(req.body.movieId, req.body)
+        const movie = await MovieModel.findOneAndUpdate(req.body.movieId, req.body)
 
         res.status(200).json({
             success: true,

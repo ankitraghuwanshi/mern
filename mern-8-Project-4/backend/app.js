@@ -6,13 +6,18 @@ const dotenv = require('dotenv')
 dotenv.config()
 //process.env contain .env data
 
+const userRouter = require("./routes/userRoute")
+const movieRouter = require("./routes/movieRoute")
+
 // Add in middleware to handle request body as JSON
 app.use(express.json())
 app.use(cors())
 
-//registering root level route
-const userRouter = require("./routes/userRoute")
+//registering root level route for user
 app.use('/api/user', userRouter)
+
+//registering root level route for movie
+app.use('/api/movies', movieRouter)
 
 //DATABASE
 //note:- after dotenv.config() because process.env uses for DB_URL

@@ -92,7 +92,8 @@ const loginHandler=async function(req,res){
         res.json({
             success: true,
             message: "successful logged in",
-            token
+            token,
+            role: user.role
         })
 
     } catch (error) {

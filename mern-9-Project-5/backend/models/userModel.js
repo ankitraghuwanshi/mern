@@ -14,11 +14,6 @@ const userSchemaRules = {
         required: true,
         minlength: 5 
     },
-    // isAdmin: {
-    //     type: Boolean,
-    //     required: false,
-    //     default: false
-    // },
     role: {
         type: String,
         required: false,

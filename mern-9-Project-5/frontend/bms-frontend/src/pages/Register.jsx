@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Radio } from "antd";
 import { Link, useNavigate } from "react-router-dom"
 import {registerUser} from "../api/users"
 
@@ -10,9 +10,22 @@ function Register() {
   const navigate = useNavigate()
 
   const onFinishRegisterForm = async (values)=>{
-    //console.log({values})
+    console.log({values})
+
+    //distructing values of register form
+    const {isAdmin, isPartner, ...restValues } = values
+    //...restValues is still object
+
+    if(isAdmin) {
+      restValues.role = "Admin"
+    }else if(isPartner) {
+      restValues.role = "Partner"
+    }else{
+      restValues.role = "User"
+    }
+
     try {
-      const response = await registerUser(values)
+      const response = await registerUser(restValues)
       
       if(response.success){
         message.success("user registered successfully")
@@ -81,6 +94,46 @@ function Register() {
                   placeholder="Enter your Password"
                  
                 ></Input>
+              </Form.Item>
+
+              <Form.Item
+                label="Register as an Admin?"
+                htmlFor="isAdmin"
+                name="isAdmin"
+                className="d-block text-center"
+                initialValue={false}
+                rules={[{ required: true, message: "Please select an option!" }]}
+              >
+                <div className="d-flex justify-content-start">
+               
+                  <Radio.Group
+                    name="radiogroup"
+                    className="flex-start"
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </div>
+              </Form.Item>
+
+              <Form.Item
+                label="Register as a Partner"
+                htmlFor="isPartner"
+                name="isPartner"
+                className="d-block text-center"
+                initialValue={false}
+                rules={[{ required: true, message: "Please select an option!" }]}
+              >
+                <div className="d-flex justify-content-start">
+               
+                  <Radio.Group
+                    name="radiogroup"
+                    className="flex-start"
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </div>
               </Form.Item>
 
               <Form.Item className="d-block">

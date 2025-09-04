@@ -17,10 +17,19 @@ function Login() {
       
       if(response.success){
         message.success("logged in successfully")
+
         //string jwt token to localstorage
         localStorage.setItem("token", response.token)
-        //navigate to login after registred successfully
-        navigate("/")
+
+        //navigate to admin/login/partner after registred successfully
+        if(response.role === "Admin"){
+          return navigate("/home")
+        }else if(response.role === "Partner"){
+          return navigate("/partner")
+        }else{
+          return navigate("/")
+        }
+
       }else{
         message.error("something went wrong (response.success if-else)")
       }

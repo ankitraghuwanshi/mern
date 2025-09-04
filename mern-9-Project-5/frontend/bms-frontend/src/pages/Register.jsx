@@ -10,21 +10,19 @@ function Register() {
   const navigate = useNavigate()
 
   const onFinishRegisterForm = async (values)=>{
-    console.log({values})
-
-    //distructing values of register form
-    const {isAdmin, isPartner, ...restValues } = values
-    //...restValues is still object
-
-    if(isAdmin) {
-      restValues.role = "Admin"
-    }else if(isPartner) {
-      restValues.role = "Partner"
-    }else{
-      restValues.role = "User"
-    }
-
+    //console.log({values})
     try {
+      //distructing values of register form
+      const {isAdmin, isPartner, ...restValues } = values
+      //...restValues is still object
+      if(isAdmin) {
+        restValues.role = "Admin"
+      }else if(isPartner) {
+        restValues.role = "Partner"
+      }else{
+        restValues.role = "User"
+      }
+
       const response = await registerUser(restValues)
       
       if(response.success){

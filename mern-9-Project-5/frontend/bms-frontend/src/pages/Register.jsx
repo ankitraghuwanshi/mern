@@ -17,10 +17,10 @@ function Register() {
       //...restValues is still object
       if(isAdmin) {
         restValues.role = "Admin"
-      }else if(isPartner) {
+      }
+      
+      if(isPartner) {
         restValues.role = "Partner"
-      }else{
-        restValues.role = "User"
       }
 
       const response = await registerUser(restValues)

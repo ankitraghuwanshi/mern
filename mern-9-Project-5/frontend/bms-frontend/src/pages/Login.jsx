@@ -24,11 +24,13 @@ function Login() {
         //navigate to admin/login/partner after registred successfully
         if(response.role === "Admin"){
           return navigate("/home")
-        }else if(response.role === "Partner"){
-          return navigate("/partner")
-        }else{
-          return navigate("/")
         }
+        
+        if(response.role === "Partner"){
+          return navigate("/partner")
+        }
+
+        return navigate("/")
 
       }else{
         message.error("something went wrong (response.success if-else)")

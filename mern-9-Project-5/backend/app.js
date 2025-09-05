@@ -32,3 +32,7 @@ connectDB()
 app.listen(process.env.PORT, ()=>{
     console.log('backend application started')
 })
+
+// Homeworks
+// Implement the Delete modal for both movies and Theatres
+// While populating owners on theatres, we only want to get the name field, not others

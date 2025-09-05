@@ -57,9 +57,9 @@ const getAllTheatres = async () => {
 }
 
 
-const getAllTheatresByOwner = async (ownerId) => {
+const getAllTheatresByOwner = async (values) => {
     try {
-        const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-owner`, ownerId)
+        const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-owner/${values.owner}`)
         return response.data
     } catch (error) {
         // Optionally extract and throw a more readable error

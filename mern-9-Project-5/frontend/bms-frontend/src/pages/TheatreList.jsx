@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, message} from 'antd';
-// import TheatreFormModal from './TheatreFormModal';
 // import DeleteTheatreModal from './DeleteTheatreModal';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getAllTheatresByOwner } from '../api/theatre';
 import { useSelector, useDispatch } from 'react-redux';
 import { showLoading, hideLoading } from '../redux/loaderSlice';
+import TheatreFormModal from './TheatreFormModal';
 // import ShowModal from './ShowModal';
 
 

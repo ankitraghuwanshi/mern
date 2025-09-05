@@ -27,11 +27,13 @@ function ProtectedRoute({ children }) {
     {
       label: "Home",
       icon: <HomeOutlined />,
+      key: "home"
     },
 
     {
       label: `${user ? user.name : ""}`,
       icon: <UserOutlined />,
+      key: "user-menu",
       children: [
         {
           label: (
@@ -50,6 +52,7 @@ function ProtectedRoute({ children }) {
             </span>
           ),
           icon: <ProfileOutlined />,
+          key: "profile",
         },
 
         {
@@ -64,6 +67,7 @@ function ProtectedRoute({ children }) {
             </Link>
           ),
           icon: <LogoutOutlined />,
+          key: "logout",
         },
       ],
     },
@@ -75,8 +79,7 @@ function ProtectedRoute({ children }) {
       dispatch(showLoading());
 
       const response = await getCurrentUser();
-      console.log(response)
-
+      //console.log(response)
 
       dispatch(setUser(response.user));
 

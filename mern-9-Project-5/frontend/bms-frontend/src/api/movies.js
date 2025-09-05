@@ -15,7 +15,7 @@ const addMovie = async(value) => {
 
 const updateMovie = async(value) => {
     try {
-        const response = await axiosInstance.post('/api/movies/update-movie', value)
+        const response = await axiosInstance.put('/api/movies/update-movie', value)
         return response.data
     }catch (error) {
         // Optionally extract and throw a more readable error

@@ -21,20 +21,20 @@ const TheatreList = () => {
 
     const getData = async () => {
         try{
-          dispatch(showLoading());
-          const response = await getAllTheatresByOwner({ owner: user._id });
-          if(response.success){
-            const allTheatres = response.allTheatresByOwner;
-            // console.log(allTheatres);
-            setTheatres(
-                allTheatres.map(function(item){
-                return {...item, key: `theatre${item._id}`}
-              })
-            );
-          }else{
-            message.error(response.message)
-          }
-          dispatch(hideLoading())
+            dispatch(showLoading());
+            const response = await getAllTheatresByOwner({ owner: user._id });
+            if(response.success){
+                const allTheatres = response.allTheatresByOwner;
+                // console.log(allTheatres);
+                setTheatres(
+                    allTheatres.map(function(item){
+                        return {...item, key: `theatre${item._id}`}
+                    })
+                );
+            }else{
+                message.error(response.message)
+            }
+            dispatch(hideLoading())
   
         }catch(err){
           dispatch(hideLoading());
@@ -88,7 +88,10 @@ const TheatreList = () => {
                     <EditOutlined/>
                 </Button>
                 <Button onClick={ () => { setIsDeleteModalOpen(true); setSelectedTheatre(data); }}><DeleteOutlined/></Button>
-                {/* { data.isActive && <Button onClick={ () => { setIsShowModalOpen(true); setSelectedTheatre(data); }}>+ Shows</Button> } */}
+                { 
+                  data.isActive && 
+                  <Button onClick={ () => { setIsShowModalOpen(true); setSelectedTheatre(data); }}>+ Shows</Button> 
+                }
               </div>
             )
           }
@@ -106,12 +109,13 @@ const TheatreList = () => {
         </div>   
         <Table dataSource={theatres} columns={columns} />
         { isModalOpen && <TheatreFormModal isModalOpen={isModalOpen} selectedTheatre={selectedTheatre} setSelectedTheatre={setSelectedTheatre} setIsModalOpen={setIsModalOpen} formType={formType} getData={getData} /> }
-        {/* { 
+        { 
             isDeleteModalOpen && <DeleteTheatreModal isDeleteModalOpen={isDeleteModalOpen} selectedTheatre={selectedTheatre} setIsDeleteModalOpen={setIsDeleteModalOpen} setSelectedTheatre={setSelectedTheatre} getData={getData} /> 
-        } */}
-        {/* {
-          isShowModalOpen && <ShowModal isShowModalOpen={isShowModalOpen} setIsShowModalOpen={setIsShowModalOpen} selectedTheatre={selectedTheatre}/>
-        } */}
+        }
+        {
+            isShowModalOpen && 
+            <ShowModal isShowModalOpen={isShowModalOpen} setIsShowModalOpen={setIsShowModalOpen} selectedTheatre={selectedTheatre}/>
+        }
         </>
     );
 }

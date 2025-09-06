@@ -6,7 +6,7 @@ import { getAllTheatresByOwner } from '../api/theatre';
 import { useSelector, useDispatch } from 'react-redux';
 import { showLoading, hideLoading } from '../redux/loaderSlice';
 import TheatreFormModal from './TheatreFormModal';
-// import ShowModal from './ShowModal';
+import ShowModal from './ShowModal';
 
 
 const TheatreList = () => {

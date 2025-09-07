@@ -41,4 +41,22 @@ movieRouter.get("/get-all-movies-by-search-text/:text", authMiddleware, async (r
     }
 })
 
+//get movie by id for movie-details
+movieRouter.get('/movie/:id', authMiddleware, async (req, res) => {
+    try{
+        const movie = await Movie.findById(req.params.id);
+        res.send({
+            success: true,
+            message: "Movie fetched successfully!",
+            data: movie
+        })
+
+    }catch(err){
+        res.send({
+            success: false,
+            message: err.message
+        })
+    }
+})
+
 module.exports = movieRouter

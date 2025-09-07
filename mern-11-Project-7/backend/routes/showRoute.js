@@ -83,20 +83,20 @@ showRouter.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) =
     let uniqueTheatres = [];
 
     shows.forEach((show) => {
-        let isTheatre = uniqueTheatres.find(
-            (theatre) => theatre._id === show.theatre._id
+      let isTheatre = uniqueTheatres.find(
+        (theatre) => theatre._id === show.theatre._id
+      );
+      // If the theatre for this show is not present in unique
+      // theatres, ONLY then add it, otherwise, simply ignore this show
+      if (!isTheatre) {
+        let showsOfThisTheatre = shows.filter(
+          (showObj) => showObj.theatre._id == show.theatre._id
         );
-        // If the theatre for this show is not present in unique
-        // theatres, ONLY then add it, otherwise, simply ignore this show
-        if (!isTheatre) {
-            let showsOfThisTheatre = shows.filter(
-                (showObj) => showObj.theatre._id == show.theatre._id
-            );
-            uniqueTheatres.push({
-                ...show.theatre._doc,
-                shows: showsOfThisTheatre,
-            });
-        }
+        uniqueTheatres.push({
+          ...show.theatre._doc,
+          shows: showsOfThisTheatre,
+        });
+      }
     });
     res.send({
       success: true,

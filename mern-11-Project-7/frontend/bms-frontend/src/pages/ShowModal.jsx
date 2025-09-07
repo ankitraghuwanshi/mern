@@ -1,31 +1,31 @@
 import {
-    Col,
-    Modal,
-    Row,
-    Form,
-    Input,
-    Button,
-    Select,
-    Table,
-    message,
-  } from "antd";
+  Col,
+  Modal,
+  Row,
+  Form,
+  Input,
+  Button,
+  Select,
+  Table,
+  message,
+} from "antd";
 import { showLoading, hideLoading } from "../redux/loaderSlice";
 import { useDispatch } from "react-redux";
-// import { addTheatre, updateTheatre } from '../../apicalls/theatres';
+//import { addTheatre, updateTheatre } from '../../apicalls/theatres';
 import {
   ArrowLeftOutlined,
   EditOutlined,
   DeleteOutlined,
-  } from "@ant-design/icons";
+} from "@ant-design/icons";
 import { useEffect, useState } from "react";
-// import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 import { getAllMovies } from "../api/movies";
 import {
   addShow,
   deleteShow,
   getShowsByTheatre,
   updateShow,
-  } from "../api/shows";
+} from "../api/shows";
 //import moment from "moment";
   
 const ShowModal = ({isShowModalOpen,setIsShowModalOpen,selectedTheatre,}) => {
@@ -39,6 +39,7 @@ const ShowModal = ({isShowModalOpen,setIsShowModalOpen,selectedTheatre,}) => {
   const getData = async () => {
     try {
       dispatch(showLoading());
+
       const movieResponse = await getAllMovies();
       if (movieResponse.success) {
         setMovies(movieResponse.movies);
@@ -54,6 +55,7 @@ const ShowModal = ({isShowModalOpen,setIsShowModalOpen,selectedTheatre,}) => {
       }
   
       dispatch(hideLoading());
+      
     } catch (err) {
       message.error(err.message);
       dispatch(hideLoading());

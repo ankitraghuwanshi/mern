@@ -10,6 +10,7 @@ const userRouter = require("./routes/userRoute")
 const movieRouter = require("./routes/movieRoute")
 const theatreRouter = require("./routes/theatreRoute")
 const showRouter = require("./routes/showRoute")
+const bookingRouter = require("./routes/bookingRoute")
 
 // Add in middleware to handle request body as JSON
 app.use(express.json())
@@ -26,6 +27,9 @@ app.use('/api/theatres', theatreRouter)
 
 //registering root level route for theatre
 app.use('/api/shows', showRouter)
+
+//registering root level route for booking
+app.use('/api/bookings', bookingRouter)
 
 //DATABASE
 //note:- after dotenv.config() because process.env uses for DB_URL

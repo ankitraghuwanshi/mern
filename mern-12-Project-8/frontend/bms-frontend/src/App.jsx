@@ -9,11 +9,15 @@ import store from './redux/store'
 import ProtectedRoute from './pages/ProtectedRoute'
 import Admin from './pages/Admin'
 import Partner from './pages/Partner'
+import Loader from './pages/Loader'
+import SingleMovie from './pages/SingleMovie'
+import BookShow from './pages/BookShow'
 
 function App() {
   
   return (
     <Provider store={store}>
+      <Loader />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<ProtectedRoute> <Home /> </ProtectedRoute>}/>
@@ -21,6 +25,8 @@ function App() {
           <Route path='/partner' element={<ProtectedRoute> <Partner /> </ProtectedRoute>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
+          <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie/></ProtectedRoute>} />
+          <Route path="/book-show/:id" element={<ProtectedRoute><BookShow /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </Provider>

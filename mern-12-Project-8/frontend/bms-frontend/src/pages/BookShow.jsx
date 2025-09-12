@@ -9,7 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { bookShow, makePayment } from "../api/booking";
 
 
-const STRIPE_PUB_KEY = ""
+const STRIPE_PUB_KEY = "pk_test_51S54lzQjnu5cVELOOAKmG0PZAFIYy6GfyFHQ564dEQMJu4e4QO5ofs8LHmvMPw1DPHwRcQTYbneDb3fFPaUX9UKM00iIGDpdwt"
 
 
 const BookShow = () => {

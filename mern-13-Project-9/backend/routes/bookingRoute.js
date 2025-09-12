@@ -1,8 +1,8 @@
 const bookingRouter = require('express').Router();
 const stripe = require('stripe')(process.env.STRIPE_KEY);
-const authMiddleware = require('../middlewares/authMiddleware');
-const BookingModel = require('../model/bookingModel');
-const ShowModel = require('../model/showModel');
+const {authMiddleware} = require('../middlewares/authMiddleware');
+const BookingModel = require('../models/bookingModel');
+const ShowModel = require('../models/showModel');
 
 bookingRouter.post('/make-payment', authMiddleware, async (req, res) => {
     try{

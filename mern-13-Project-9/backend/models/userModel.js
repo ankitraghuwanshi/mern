@@ -18,6 +18,13 @@ const userSchemaRules = {
         type: String,
         required: false,
         default: "User" //"Admin","Partner","User"
+    },
+    // New Otp fields added
+    otp: {
+        type: String
+    },
+    otpExpiry: {
+        type: Date
     }
 }
 const userSchema = new mongoose.Schema(userSchemaRules)

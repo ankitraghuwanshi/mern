@@ -31,8 +31,8 @@ async function emailHelper(templateName, reciverEmail, creds) {
         let content = await fs.promises.readFile(templatePath, "utf-8");
         const emailDetails = {
             to: reciverEmail,
-            from: 'tarashankar.chakraborty_1@scaler.com',
-            subject: 'Mail from ScalerShows',
+            from: 'ankit123developer321@gmail.com',
+            subject: 'Mail from BookMyShows',
             text: `Hi ${creds.name} this your reset otp ${creds.otp}`,
             html: replaceContent(content, creds),
         }

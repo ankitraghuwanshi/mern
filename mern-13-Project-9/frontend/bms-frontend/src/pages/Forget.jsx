@@ -12,6 +12,7 @@ function Forget() {
             if (response.status === "success") {
                 message.success(response.message)
                 alert("OTP sent to your email")
+                //it will redirect to reset page
                 window.location.href = '/reset'
             }
             else {
@@ -21,12 +22,14 @@ function Forget() {
             message.error(error.message)
         }
     }
+
     const navigate = useNavigate()
     useEffect(() => {
         if (localStorage.getItem('token')) {
             navigate("/");
         }
     }, [])
+
     return (
         <>
             <header className="App-header">

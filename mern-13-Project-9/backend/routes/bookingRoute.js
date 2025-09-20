@@ -3,6 +3,8 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 const {authMiddleware} = require('../middlewares/authMiddleware');
 const BookingModel = require('../models/bookingModel');
 const ShowModel = require('../models/showModel');
+const {UserModel} =require("../models/userModel")
+const emailHelper=require("../config/emailHelper")
 
 bookingRouter.post('/make-payment', authMiddleware, async (req, res) => {
     try{
@@ -52,6 +54,23 @@ bookingRouter.post('/book-show', authMiddleware, async (req, res) => {
             message: 'New Booking done!',
             data: newBooking
         });
+
+        //send booking details of user with html through email
+        const user = await UserModel.findById(newBooking.user)
+        console.log({ user })
+        await emailHelper("ticket.html", user.email, {
+            name: user.name,
+            movie: show.movie.movieName,
+            theatre: show.theatre.name,
+            date: show.date,
+            time: show.time,
+            seats: newBooking.seats,
+            amount: newBooking.seats.length * show.ticketPrice,
+            transactionId: newBooking.transactionId,
+        });
+
+        console.log("Email sent")
+
     }catch(err){
         res.send({
             success: false,

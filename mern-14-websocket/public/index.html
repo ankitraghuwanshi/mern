@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>websocket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        #messages {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #messages li {
+            padding: 8px;
+            background: #f3f3f3;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Websockets Demo - Served by Node Server</h1>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="type"><button>Send</button>
+    </form>
+
+    <!-- This script loads the client package of socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io();
+
+        console.log({ socket })
+
+        // Form submit handler
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('client_message', input.value);
+                input.value = '';
+            }
+        });
+
+        // Listen for messages from the server
+        socket.on('server_message', function (msg) {
+            var item = document.createElement('li');
+            item.textContent = msg;
+            document.getElementById('messages').appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>
